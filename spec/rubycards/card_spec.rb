@@ -29,6 +29,16 @@ describe Card do
         new_card.rank.should == 7.to_s
         new_card.suit.should == 'Hearts'
       end
+
+      describe 'jokers' do
+        it "should allow a third parameter to define the type of Joker" do
+          red_joker = Card.new(nil, nil, 'Red')
+          red_joker.joker.should == 'Red'
+
+          black_joker = Card.new(nil, nil, 'Black')
+          black_joker.joker.should == 'Black'
+        end
+      end
     end
   end
 
@@ -79,6 +89,18 @@ describe Card do
         num.rank.should == num.rank(true)
       end
     end
+
+    context 'jokers' do
+      let (:num) { Card.new(nil, nil, 'Red') }
+
+      it "should return a long rank" do
+        num.rank.should == 'Red Joker'
+      end
+
+      it "should return a short rank" do
+        num.rank(true).should == 'Joker'
+      end
+    end
   end
 
   describe '#display' do
@@ -123,6 +145,18 @@ describe Card do
 
       runt_card1.suit.should be_nil
       runt_card2.suit.should be_nil
+    end
+  end
+
+  describe '#joker' do
+    it "should return true if the card is a joker" do
+      card = Card.new(nil, nil, 'Red')
+      card.joker?.should == true
+    end
+
+    it "should return false if the card is not a joker" do
+      card = Card.new
+      card.joker?.should == false
     end
   end
 
