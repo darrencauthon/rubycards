@@ -33,6 +33,8 @@ describe Deck do
         deck.cards.select { |x| x.joker == 'Black' }.count.should == 1
       end
     end
+
+
   end
 
   describe '#shuffle!' do
